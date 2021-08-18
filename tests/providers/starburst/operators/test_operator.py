@@ -20,12 +20,10 @@ class TestStarburst(unittest.TestCase):
 
     def tearDown(self) -> None:
         tables_to_drop = ['airflow_test']
-        from airflow.providers.starburst.hooks.trino import TrinoHook
 
         for table in tables_to_drop:
             sql = f"DROP TABLE IF EXISTS {table}"
             StarburstOperator(task_id="tearDown", starburst_conn_id="starburst_conn_id",sql=sql, dag=self.dag)
-
 
     def test_starburst_operator(self):
         sql = """
