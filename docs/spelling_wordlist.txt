@@ -320,6 +320,7 @@ Sqlite
 Sqoop
 Stackdriver
 Standarization
+Starburst
 StatefulSet
 StatefulSets
 StatsD

@@ -599,6 +599,7 @@ PROVIDERS_REQUIREMENTS: Dict[str, List[str]] = {
     'snowflake': snowflake,
     'sqlite': [],
     'ssh': ssh,
+    'starburst':'starburst',
     'tableau': tableau,
     'telegram': telegram,
     'trino': trino,

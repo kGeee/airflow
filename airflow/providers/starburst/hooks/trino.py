@@ -16,8 +16,9 @@
 # specific language governing permissions and limitations
 # under the License.
 # https://github.com/apache/airflow/blob/main/airflow/providers/trino/hooks/trino.py
+from contextlib import closing
 import os
-from typing import Any, Iterable, Optional
+from typing import Any, Dict, Iterable, Optional
 
 import trino
 from trino.exceptions import DatabaseError
@@ -26,7 +27,7 @@ from trino.transaction import IsolationLevel
 from airflow import AirflowException
 from airflow.configuration import conf
 from airflow.models import Connection
-from airflow.hooks.dbapi_hook import DbApiHook
+from airflow.hooks.dbapi import DbApiHook
 
 class TrinoException(Exception):
     """Trino exception"""
@@ -46,16 +47,16 @@ def _boolify(value):
 class TrinoHook(DbApiHook):
     """
     Interact with Trino through trino package.
-    >>> ph = TrinoHook()
-    >>> sql = "SELECT count(1) AS num FROM airflow.static_babynames"
-    >>> ph.get_records(sql)
+    >>> hook = TrinoHook()
+    >>> sql = "SELECT count(1) AS num FROM airflow"
+    >>> hook.get_records(sql)
     Hook to interact with Starburst
     The hook requires the starburst_conn_id to be set with the host, login, and
     password fields.
     """
 
     conn_name_attr = 'starburst_conn_id'
-    default_conn_name = 'trino_default'
+    default_conn_name = 'starburst_default'
     conn_type = 'starburst'
     hook_name = 'Starburst'
 
@@ -153,20 +154,6 @@ class TrinoHook(DbApiHook):
                 df_list.append(df)
         return df_list if len(df_list) > 1 else df_list[0]
 
-    def run(
-        self,
-        hql,
-        autocommit: bool = False,
-        parameters: Optional[dict] = None,
-    ) -> None:
-        """Execute the statement against Trino. Can be used to create views."""
-        if isinstance(hql, str):
-            split_statements = hql.split(';')
-            hql = [hql_string for hql_string in split_statements if hql_string]
-        for statement in hql:
-            super().run(sql=statement, parameters=parameters)
-
-
     def insert_rows(
         self,
         table: str,
@@ -185,7 +172,7 @@ class TrinoHook(DbApiHook):
         :param target_fields: The names of the columns to fill in the table
         :type target_fields: iterable of strings
         :param commit_every: The maximum number of rows to insert in one
-            transaction. Set to 0 to insert all rows in one transaction.
+        transaction. Set to 0 to insert all rows in one transaction.
         :type commit_every: int
         :param replace: Whether to replace instead of insert
         :type replace: bool
@@ -199,3 +186,32 @@ class TrinoHook(DbApiHook):
             commit_every = 0
 
         super().insert_rows(table, rows, target_fields, commit_every)
+
+    def run(
+        self,
+        hql,
+        autocommit: bool = False,
+        parameters: Optional[dict] = None,
+    ) -> None:
+        """Execute the statement against Trino. Can be used to create views."""
+        if isinstance(hql, str):
+            split_statements = hql.split(';')
+            hql = [hql_string for hql_string in split_statements if hql_string]
+        
+        cur = self.get_cursor()
+        query_info = list()
+        for statement in hql:
+            query = list()
+            try:
+                cur.execute(statement, parameters)
+            except DatabaseError as e:
+                raise TrinoException(e)
+            
+            for row in cur:
+                query.append(row)
+            query_info.append(query)
+
+            if not autocommit:
+                cur.commit()
+                
+        return query_info

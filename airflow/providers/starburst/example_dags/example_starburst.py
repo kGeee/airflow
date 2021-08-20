@@ -43,11 +43,14 @@ with DAG(
     start_date=days_ago(2)
 ) as dag:
 
+    # [START howto_operator_starburst]
     # Query Starburst using Jinja templated file store in the include folder
     starburst_template_file_query = StarburstOperator(
         task_id='starburst_template_file_query',
-        starburst_conn_id='starburst_conn_id',
         sql='include/query.sql',
+        autocommit=True,
+        parameters=None,
+        xcom_push=True,
         params={'catalog':'tpch'},
         dag=dag
     )
@@ -55,15 +58,23 @@ with DAG(
     #Execute a single query to Starburst
     starburst_sql_query = StarburstOperator(
         task_id='starburst_sql_query',
-        starburst_conn_id='starburst_conn_id',
         sql='show schemas from tpch;',
+        autocommit=True,
+        parameters=None,
+        xcom_push=True,
         dag=dag
     )
   
     #Execute a series of queries to Starburst
     starburst_sql_query_list = StarburstOperator(
         task_id='starburst_sql_query_list',
-        starburst_conn_id='starburst_conn_id',
         sql="show catalogs;show schemas from tpch;",
+        autocommit=True,
+        parameters=None,
+        xcom_push=False,
         dag=dag
     )
+
+    # [END howto_operator_starburst]
+
+    # [END dag]

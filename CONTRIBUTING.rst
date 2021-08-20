@@ -595,7 +595,7 @@ http, imap, jdbc, jenkins, jira, kerberos, kubernetes, ldap, leveldb, microsoft.
 microsoft.mssql, microsoft.psrp, microsoft.winrm, mongo, mssql, mysql, neo4j, odbc, openfaas,
 opsgenie, oracle, pagerduty, pandas, papermill, password, pinot, plexus, postgres, presto, qds,
 qubole, rabbitmq, redis, s3, salesforce, samba, segment, sendgrid, sentry, sftp, singularity, slack,
-snowflake, spark, sqlite, ssh, statsd, tableau, telegram, trino, vertica, virtualenv, webhdfs,
+snowflake, spark, sqlite, ssh, starburst, statsd, tableau, telegram, trino, vertica, virtualenv, webhdfs,
 winrm, yandex, zendesk
 
   .. END EXTRAS HERE
@@ -672,6 +672,7 @@ salesforce                 tableau
 sftp                       ssh
 slack                      http
 snowflake                  slack
+starburst                  trino
 ========================== ===========================
 
   .. END PACKAGE DEPENDENCIES HERE

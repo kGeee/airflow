@@ -98,7 +98,7 @@ function discover_all_provider_packages() {
     local actual_number_of_providers
     actual_providers=$(airflow providers list --output yaml | grep package_name)
     actual_number_of_providers=$(wc -l <<<"$actual_providers")
-    if (( actual_number_of_providers < 67 )); then
+    if (( actual_number_of_providers < 68 )); then
         echo
         echo  "${COLOR_RED}ERROR:Number of providers installed is wrong: ${actual_number_of_providers}${COLOR_RESET}"
         echo
@@ -115,7 +115,7 @@ function discover_all_hooks() {
     COLUMNS=180 airflow providers hooks
     local actual_number_of_hooks
     actual_number_of_hooks=$(airflow providers hooks --output table | grep -c "| apache" | xargs)
-    if (( actual_number_of_hooks < 70 )); then
+    if (( actual_number_of_hooks < 71 )); then
         echo
         echo  "${COLOR_RED}ERROR: Number of hooks registered is wrong: ${actual_number_of_hooks} ${COLOR_RESET}"
         echo
