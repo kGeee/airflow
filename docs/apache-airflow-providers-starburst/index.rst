@@ -42,9 +42,3 @@ Content
 
     Example DAGs <https://github.com/apache/airflow/tree/main/airflow/providers/starburst/example_dags>
     PyPI Repository <https://pypi.org/project/apache-airflow-providers-starburst/>
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Commits
-
-    Detailed list of commits <commits>

@@ -30,7 +30,7 @@ additional-dependencies:
 integrations:
   - integration-name: Trino
     external-doc-url: https://trino.io/docs/
-    logo: /integration-logos/trino/trino-og.png
+    logo: /integration-logos/starburst/starburst_logo.png
     tags: [service]
 
 hooks:

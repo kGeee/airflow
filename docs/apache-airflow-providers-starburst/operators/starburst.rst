@@ -21,7 +21,7 @@ StarburstOperator
 =================
 
 Use the :class:`StarburstOperator <airflow.providers.starburst.operators.starburst>` to execute
-SQL commands in a `Starburst <https://trino.io>`__ cluster.
+SQL commands in a Starburst cluster.
 
 
 Using the Operator
