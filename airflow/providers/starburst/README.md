@@ -35,7 +35,7 @@ Note: When running airflow with breeze, the trino host address should be the IPv
 
 ## Running the example dag
 Ensure that the connection is properly configured within airflow via the web ui.
-Airflow defaults to finding dags in `files/dags`. The example dag for starburst is included in this fork. 
+Airflow defaults to finding dags in `files/dags`. The example dag is located in `airflow.providers.starburst.example_dags`. Move the contents of this folder into your `files/dags` folder to allow airflow to find the dag and the included sql file.
 
 ## Additional documentation
 [Connection Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/connections/starburst.rst)\
