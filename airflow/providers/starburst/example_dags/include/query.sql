@@ -1,0 +1,1 @@
+show schemas in {{params.catalog}};
