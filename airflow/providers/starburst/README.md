@@ -41,6 +41,12 @@ Airflow defaults to finding dags in `files/dags`. The example dag for starburst 
 [Connection Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/connections/starburst.rst)\
 [Operator Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/operators/starburst.rst)
 
+
+## Provider files added
+ - `airflow.providers.starburst`
+ - `tests.providers.starburst`
+ - `docs.apache-airflow-providers-starburst`
+
 ## Possible running issues and fixes
 When running airflow via WSL2 its possible that you run into `$' r' command not found` when starting airflow via the breeze script. This is an issue regarding the script having embedded `\r` characters. To solve this issue you can use dos2unix.
 
