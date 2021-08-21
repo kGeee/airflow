@@ -33,6 +33,14 @@ The starburst connection must be configured in airflow connections before runnin
 
 Note: When running airflow with breeze, the trino host address should be the IPv4 address of the local machine with port 38080 and the login should be `trino`. 
 
+## Running the example dag
+Ensure that the connection is properly configured within airflow via the web ui.
+Airflow defaults to finding dags in `files/dags`. The example dag for starburst is included in this fork. 
+
+## Additional documentation
+[Connection Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/connections/starburst.rst)\
+[Operator Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/operators/starburst.rst)
+
 ## Possible running issues and fixes
 When running airflow via WSL2 its possible that you run into `$' r' command not found` when starting airflow via the breeze script. This is an issue regarding the script having embedded `\r` characters. To solve this issue you can use dos2unix.
 
@@ -44,6 +52,7 @@ sudo find . -type f -exec dos2unix {} \;
 Solution Resources: 
 - [StackOverflow](https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-directory)
 - [AskUbuntu](https://askubuntu.com/questions/803162/how-to-change-windows-line-ending-to-unix-version)
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
