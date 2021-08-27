@@ -35,7 +35,32 @@ Note: When running airflow with breeze, the trino host address should be the IPv
 
 ## Running the example dag
 Ensure that the connection is properly configured within airflow via the web ui.
-Airflow defaults to finding dags in `files/dags`. The example dag is located in `airflow.providers.starburst.example_dags`. Move the contents of this folder into your `files/dags` folder to allow airflow to find the dag and the included sql file.
+Airflow defaults to finding dags in `~/airflow/files/dags`. The example dag is located in `airflow.providers.starburst.example_dags`. Move the contents of this folder into your `~/airflow/files/dags` folder to allow airflow to find the dag and the included sql file.
+
+
+## Running the tests via Breeze
+
+ *When running trino integration tests you must first add the Host for trino*
+- Add the host in the `~/airflow/files/airflow-breeze-config/init.sh`
+
+
+Airflow uses pytests to ensure that the provider will work correctly with Airflow. Tests module can be found at `~/airflow/tests/providers/starburst/`
+
+There are two integrations used with the Starburst provider package `trino` and `kerberos`. 
+
+In order to run tests you must execute the breeze script with the integration flags you wish to test
+```bash
+./breeze --integration trino --integration kerberos
+```
+
+Once the integration is running you can then run the pytests with the integration flag you wish to test.
+```bash
+pytests tests/providers/starburst/ --integration trino --integration kerberos
+```
+
+Note : Tests with integration flags will only be run if the integration is enabled
+
+
 
 ## Additional documentation
 [Connection Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/connections/starburst.rst)\

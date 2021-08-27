@@ -19,12 +19,14 @@ class TestStarburst(unittest.TestCase):
         dag = DAG(TEST_DAG_ID, default_args=args)
         self.dag = dag
 
+    @pytest.mark.integration("trino")
     def test_starburst_operator(self):
         sql = """
                 SHOW CATALOGS;
                 """
         op = StarburstOperator(task_id='basic_starburst',sql=sql, xcom_push=False, dag=self.dag)
 
+    @pytest.mark.integration("trino")
     def test_starburst_operator_multiple_stmts(self):
         sql = ["SHOW CATALOGS",
                "SHOW SCHEMAS IN TPCH"]
