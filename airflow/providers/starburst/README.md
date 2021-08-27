@@ -40,9 +40,6 @@ Airflow defaults to finding dags in `~/airflow/files/dags`. The example dag is l
 
 ## Running the tests via Breeze
 
- *When running trino integration tests you must first add the Host for trino*
-- Add the host in the `~/airflow/files/airflow-breeze-config/init.sh`
-
 
 Airflow uses pytests to ensure that the provider will work correctly with Airflow. Tests module can be found at `~/airflow/tests/providers/starburst/`
 
@@ -53,7 +50,19 @@ In order to run tests you must execute the breeze script with the integration fl
 ./breeze --integration trino --integration kerberos
 ```
 
-Once the integration is running you can then run the pytests with the integration flag you wish to test.
+ *When running trino integration tests you must add the connection for trino*
+- Run the following command to add the connection  
+    ```bash
+        airflow connections add \
+        --conn-login trino \
+        --conn-type starburst \
+        --conn-host `TRINO HOST IP HERE` \
+        --conn-port 38080 \
+        --conn-extra {} \
+        starburst_default
+    ```
+
+Once the integration is running and the connection is configured you can then run the pytests with the integration flag you wish to test.
 ```bash
 pytests tests/providers/starburst/ --integration trino --integration kerberos
 ```
