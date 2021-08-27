@@ -62,6 +62,8 @@ Note : Tests with integration flags will only be run if the integration is enabl
 
 
 
+[Example Dags](https://github.com/kGeee/airflow/tree/main/airflow/providers/starburst/example_dags)
+
 ## Additional documentation
 [Connection Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/connections/starburst.rst)\
 [Operator Docs](https://github.com/kGeee/airflow/blob/main/docs/apache-airflow-providers-starburst/operators/starburst.rst)
